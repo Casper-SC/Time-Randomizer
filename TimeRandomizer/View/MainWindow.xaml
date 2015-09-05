@@ -1,0 +1,15 @@
+﻿<Window x:Class="TimeRandomizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:View="clr-namespace:TimeRandomizer.View"
+        Title="Time in English"
+        Width="540"
+        Height="350"
+        MinWidth="540"
+        MinHeight="350"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
+   
+   <View:TimePanel />
+   
+</Window>
