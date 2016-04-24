@@ -18,7 +18,7 @@ namespace TimeRandomizer
         /// </summary>
         /// <param name="settings">Экземпляр класса для сохранения</param>
         /// <param name="fileName">Путь к файлу, в который будут сохранены настройки</param>
-        public static void Save(AppSettings settings, String fileName)
+        public static void Save(AppSettings settings, string fileName)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(AppSettings));
             using (FileStream fs = new FileStream(fileName, FileMode.Create))
@@ -33,7 +33,7 @@ namespace TimeRandomizer
         /// </summary>
         /// <param name="fileName">Путь к файлу</param>
         /// <returns>Экземпляр класса настроек</returns>
-        public static AppSettings Load(String fileName)
+        public static AppSettings Load(string fileName)
         {
             try
             {
