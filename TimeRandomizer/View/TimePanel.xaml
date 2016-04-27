@@ -4,74 +4,81 @@
              xmlns:bindConv="clr-namespace:TimeRandomizer.BindingConverters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="317"
+             d:DesignWidth="497"
              Background="{StaticResource BackgroundApp}"
              DataContext="{Binding Source={StaticResource Locator},
                                    Path=Main}"
              IsEnabled="{Binding SettingsLoaded}"
-             d:DesignHeight="317"
-             d:DesignWidth="497"
              mc:Ignorable="d">
 
-   <UserControl.Resources>
-      <bindConv:DateTimeToTimeStringConverter x:Key="dateTimeToTimeStringConverter" />
-   </UserControl.Resources>
+    <UserControl.Resources>
+        <bindConv:DateTimeToTimeStringConverter x:Key="DateTimeToTimeStringConverter" />
+    </UserControl.Resources>
 
-   <Grid>
-      <Grid.ColumnDefinitions>
-         <ColumnDefinition Width="206*" />
-         <ColumnDefinition Width="114" />
-         <ColumnDefinition Width="206*" />
-      </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="91*" />
+            <ColumnDefinition Width="132" />
+            <ColumnDefinition Width="91*" />
+        </Grid.ColumnDefinitions>
 
-      <Button Grid.Column="1"
-              Margin="3,0,3,12"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Bottom"
-              Command="{Binding RandomizeCommand}"
-              Content="Randomize"
-              Cursor="Hand"
-              FontSize="18"
-              Padding="8,1" />
+        <Button Grid.Column="1"
+                Margin="0,0,0,12"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Command="{Binding RandomizeCommand}"
+                Content="Randomize"
+                Cursor="Hand"
+                FontSize="20"
+                Padding="8,2"
+                Style="{DynamicResource ButtonMainStyle}" />
 
-      <TextBox Name="englishTextTextBox"
-               Grid.Column="0"
-               Grid.ColumnSpan="3"
-               Height="40"
-               Margin="12,0,12,61"
-               VerticalAlignment="Bottom"
-               FontSize="22"
-               GotMouseCapture="EnglishTextTextBox_GotMouseCapture"
-               IsReadOnly="True"
-               Text="{Binding Path=TimeAsText,
-                              Mode=OneWay}"
-               TextAlignment="Center" />
-
-      <StackPanel Grid.Column="0"
-                  Grid.ColumnSpan="2"
-                  Margin="12,12,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  Orientation="Horizontal">
-         <CheckBox VerticalAlignment="Center"
-                   Content="24 format"
-                   FontSize="14"
-                   Visibility="Collapsed" />
-         <CheckBox Margin="6,0,0,0"
-                   VerticalAlignment="Center"
-                   Content="Minutes multiple of five"
-                   FontSize="14"
-                   IsChecked="{Binding Path=MultipleOfFive}" />
-      </StackPanel>
-
-      <TextBlock Grid.Column="0"
+        <TextBox Name="englishTextTextBox"
+                 Grid.Column="0"
                  Grid.ColumnSpan="3"
-                 Margin="12,65,12,118"
-                 VerticalAlignment="Center"
-                 FontSize="96"
-                 Style="{StaticResource MainTextBlock}"
-                 Text="{Binding Path=Time,
-                                Converter={StaticResource dateTimeToTimeStringConverter},
-                                ConverterParameter=TimeFormat}"
+                 Height="40"
+                 Margin="12,0,12,61"
+                 VerticalAlignment="Bottom"
+                 FontSize="24"
+                 GotMouseCapture="EnglishTextTextBox_GotMouseCapture"
+                 IsReadOnly="True"
+                 Text="{Binding Path=TimeAsText,
+                                Mode=OneWay}"
                  TextAlignment="Center" />
-   </Grid>
+
+        <StackPanel Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Width="172"
+                    Height="18"
+                    Margin="12,12,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <CheckBox VerticalAlignment="Center"
+                      Content="24 format"
+                      FontSize="14"
+                      Visibility="Collapsed" />
+            <CheckBox Margin="6,0,0,0"
+                      VerticalAlignment="Center"
+                      Content="Minutes multiple of five"
+                      FontSize="14"
+                      IsChecked="{Binding Path=MultipleOfFive}" />
+        </StackPanel>
+
+        <TextBlock Grid.Column="0"
+                   Grid.ColumnSpan="3"
+                   Height="128"
+                   Margin="12,68,12,121"
+                   VerticalAlignment="Center"
+                   FontSize="96"
+                   Foreground="#FF535353"
+                   Style="{StaticResource MainTextBlock}"
+                   Text="{Binding Path=Time,
+                                  Converter={StaticResource DateTimeToTimeStringConverter},
+                                  ConverterParameter=TimeFormat}"
+                   TextAlignment="Center">
+        </TextBlock>
+        <!--  FF706F6A FFF7F3DF  -->
+    </Grid>
 </UserControl>
