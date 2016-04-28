@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using TimeRandomizer.Model.Interfaces;
 
@@ -87,10 +89,9 @@ namespace TimeRandomizer.Model
             int hour = _random.Next(1, 24);
             int minute = _random.Next(0, 60);
             if (multipleOfFive)
-                minute = RoundMinuteMultipleOfFive(minute);
+                minute = (minute / 5) * 5;
 
-            DateTime time = new DateTime(1, 1, 1, hour, minute, 0);
-            return time;
+            return new DateTime(1, 1, 1, hour, minute, 0);
         }
 
         /// <summary>
@@ -99,32 +100,30 @@ namespace TimeRandomizer.Model
         /// <param name="time">Время, на основе которого будет сгенерирован текст</param>
         public string GenerateText(DateTime time)
         {
-            if (_sb.Length > 0)
-                _sb.Remove(0, _sb.Length);
-
-            _sb.Append(Its).Append(" ");
+            _sb.Clear();
+            _sb.Append(Its + " ");
 
             int hour = time.Hour < 13 ? time.Hour : time.Hour - 12;
-            string hoursAsText = null;
+
+            string hoursAsText = string.Empty;
             if (time.Minute <= 30)
                 hoursAsText = ConvertNumberToText(hour);
-            string minutesAsText = null;
+
+            string minutesAsText = string.Empty;
             if (time.Minute < 30)
                 minutesAsText = ConvertNumberToText(time.Minute);
 
-
             if (time.Minute == 0)
             {
-                _sb.Append(Exactly).Append(" ");
-                _sb.Append(hoursAsText);
+                _sb.Append(Exactly + " " + hoursAsText);
             }
             else if (time.Minute == 30)
             {
-                _sb.AppendFormat("{0} {1} {2}", Half, Past, hoursAsText);
+                _sb.Append(Half + " " + Past + " " + hoursAsText);
             }
             else if (time.Minute < 30)
             {
-                _sb.AppendFormat("{0} {1} {2}", minutesAsText, Past, hoursAsText);
+                _sb.Append(minutesAsText + " " + Past + " " + hoursAsText);
             }
             else if (time.Minute > 30)
             {
@@ -135,7 +134,7 @@ namespace TimeRandomizer.Model
                     hour = 12;
 
                 hoursAsText = ConvertNumberToText(hour);
-                _sb.AppendFormat("{0} {1} {2}", minutesAsText, To, hoursAsText);
+                _sb.Append(minutesAsText + " " + To + " " + hoursAsText);
             }
 
             return _sb.ToString();
@@ -148,9 +147,7 @@ namespace TimeRandomizer.Model
         /// <returns>Текстовое представление числа</returns>
         public string ConvertNumberToText(int number)
         {
-            if (number < 0 || number > 59)
-                throw new ArgumentOutOfRangeException(string.Format(
-                    "number выходит за диапазон допустимых значений. Передано значение: {0}", number));
+            AssertConvertibleNumber(number);
 
             string tensWord = string.Empty;  //десятки
             string unitsWord = string.Empty; //единицы
@@ -179,9 +176,12 @@ namespace TimeRandomizer.Model
             return tensWord;
         }
 
-        private int RoundMinuteMultipleOfFive(int minute)
+        [Conditional("DEBUG")]
+        private static void AssertConvertibleNumber(int number)
         {
-            return (minute / 5) * 5;
+            if (number < 0 || number > 59)
+                throw new ArgumentOutOfRangeException(string.Format(
+                    "number выходит за диапазон допустимых значений. Передано значение: {0}", number));
         }
     }
 }

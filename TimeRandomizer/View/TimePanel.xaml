@@ -79,6 +79,6 @@
                                   ConverterParameter=TimeFormat}"
                    TextAlignment="Center">
         </TextBlock>
-        <!--  FF706F6A FFF7F3DF  -->
+
     </Grid>
 </UserControl>

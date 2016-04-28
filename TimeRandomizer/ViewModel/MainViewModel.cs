@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -15,6 +17,9 @@ namespace TimeRandomizer.ViewModel
         private bool _multipleOfFive;
         private string _timeAsText;
 
+        private readonly Dictionary<DateTime, string> _words;
+        private int _dictionarySize;
+
         public MainViewModel(ITimeGenerator generator)
         {
             if (generator == null)
@@ -22,6 +27,7 @@ namespace TimeRandomizer.ViewModel
                 throw new ArgumentNullException(nameof(generator));
             }
 
+            _words = new Dictionary<DateTime, string>(1440); // 24 часа * 60 минут
             _timeGenerator = generator;
 
             Configuration = new GlobalConfig();
@@ -38,7 +44,14 @@ namespace TimeRandomizer.ViewModel
         {
             DateTime time = _timeGenerator.GenerateRandomTime(MultipleOfFive);
             Time = time;
-            TimeAsText = _timeGenerator.GenerateText(time);
+
+            if (!_words.ContainsKey(time))
+            {
+                string timeAsText = _timeGenerator.GenerateText(time);
+                _words.Add(time, timeAsText);
+            }
+
+            TimeAsText = _words[time];
         }
 
         public ICommand RandomizeCommand
