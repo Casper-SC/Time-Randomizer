@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -18,7 +17,6 @@ namespace TimeRandomizer.ViewModel
         private string _timeAsText;
 
         private readonly Dictionary<DateTime, string> _words;
-        private int _dictionarySize;
 
         public MainViewModel(ITimeGenerator generator)
         {
@@ -65,7 +63,6 @@ namespace TimeRandomizer.ViewModel
 
                 return _randomizeCommand;
             }
-            set { _randomizeCommand = value; }
         }
 
         /// <summary>

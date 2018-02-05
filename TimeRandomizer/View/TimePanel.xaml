@@ -7,8 +7,6 @@
              d:DesignHeight="317"
              d:DesignWidth="497"
              Background="{StaticResource BackgroundApp}"
-             DataContext="{Binding Source={StaticResource Locator},
-                                   Path=Main}"
              IsEnabled="{Binding SettingsLoaded}"
              mc:Ignorable="d">
 
@@ -44,7 +42,8 @@
                  GotMouseCapture="EnglishTextTextBox_GotMouseCapture"
                  IsReadOnly="True"
                  Text="{Binding Path=TimeAsText,
-                                Mode=OneWay}"
+                                Mode=OneWay, 
+                                FallbackValue='*Time'}"
                  TextAlignment="Center" />
 
         <StackPanel Grid.Column="0"
@@ -76,7 +75,8 @@
                    Style="{StaticResource MainTextBlock}"
                    Text="{Binding Path=Time,
                                   Converter={StaticResource DateTimeToTimeStringConverter},
-                                  ConverterParameter=TimeFormat}"
+                                  ConverterParameter=TimeFormat, 
+                                  FallbackValue='*12:00 PM'}"
                    TextAlignment="Center">
         </TextBlock>
 

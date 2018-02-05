@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using TimeRandomizer.ViewModel;
 
-namespace TimeRandomizer
+namespace TimeRandomizer.View
 {
     public partial class MainWindow : Window
     {
